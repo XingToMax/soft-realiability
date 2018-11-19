@@ -164,11 +164,5 @@ public class JelinskiMorandaModel {
         jm.setValueP(p);
         return p;
     }
-
-    public static void main(String[] args) throws IOException {
-        JmModelDataBean jm = execute();
-        System.out.println("N0 的 点估计值 : " + jm.getnPointEvaluate());
-        System.out.println("Fai 的 点估计值 : " + jm.getFaiPointEvaluate());
-    }
 }
 

@@ -110,8 +110,4 @@ public class GoelOkumotoModel {
         fValue += (go.getdValue() - 1) * go.getXm() - 1;
         return fValue;
     }
-
-    public static void main(String[] args) throws IOException {
-        GoelOkumotoBean go = GoelOkumotoModel.execute();
-    }
 }
