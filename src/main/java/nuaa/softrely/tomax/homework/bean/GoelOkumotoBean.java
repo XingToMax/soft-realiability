@@ -5,7 +5,7 @@ package nuaa.softrely.tomax.homework.bean;
  * @Description:
  * @Date: Created in 2018/11/15 18:14
  */
-public class GoelOkumotoBean extends DatasetBean{
+public class GoelOkumotoBean extends Model {
 
     /**
      * 误差允许值D
@@ -21,15 +21,20 @@ public class GoelOkumotoBean extends DatasetBean{
      */
     public void initdValue() {
         double dSum = 0;
-        for (Double d : failCountList) {
+        for (Double d : trainDataset) {
             dSum += d;
         }
-        dValue = dSum / (n * failCountList.get(n));
+        dValue = dSum / (trainDataNum * trainDataset.get(trainDataNum));
     }
 
     private double xr;
     private double xm;
     private double xl;
+
+    @Override
+    public double calculateFunctionDistribution(double x) {
+        return 0;
+    }
 
     public double getdValue() {
         return dValue;

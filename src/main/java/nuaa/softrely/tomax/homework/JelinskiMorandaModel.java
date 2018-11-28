@@ -1,11 +1,8 @@
 package nuaa.softrely.tomax.homework;
 
-import nuaa.softrely.tomax.homework.bean.DatasetBean;
 import nuaa.softrely.tomax.homework.bean.JmModelDataBean;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @Author: ToMax
@@ -30,6 +27,7 @@ public class JelinskiMorandaModel {
         calculateValueP(jm);
         // 从步骤一开始执行
         calculateStepFirst(jm);
+
         return jm;
     }
 
@@ -39,7 +37,7 @@ public class JelinskiMorandaModel {
      * @param i
      * @return
      */
-    public static double calculateMtbf(JmModelDataBean jm, int i) {
+    private static double calculateMtbf(JmModelDataBean jm, int i) {
         return 1 / (jm.getFaiPointEvaluate() * (jm.getnPointEvaluate() - i + 1));
     }
 
@@ -48,9 +46,9 @@ public class JelinskiMorandaModel {
      * @param jm
      */
     private static void calculateStepFirst(JmModelDataBean jm) {
-        if (jm.getValueP() > (jm.getN() - 1) / 2.0) {
-            jm.setLeft(jm.getN() - 1);
-            jm.setRight(jm.getN());
+        if (jm.getValueP() > (jm.getTrainDataNum() - 1) / 2.0) {
+            jm.setLeft(jm.getTrainDataNum() - 1);
+            jm.setRight(jm.getTrainDataNum());
             // to step 2
             calculateStepSecond(jm);
         }
@@ -122,11 +120,11 @@ public class JelinskiMorandaModel {
         jm.setnPointEvaluate(jm.getRoot());
         double tempFaiValue = 0;
         double baseValue = 0;
-        for (int i = 1; i <= jm.getN(); i++) {
+        for (int i = 1; i <= jm.getTrainDataNum(); i++) {
             baseValue += (i - 1) * (jm.get(i) - jm.get(i - 1));
         }
-        baseValue = jm.getnPointEvaluate() * jm.get(jm.getN()) - baseValue;
-        tempFaiValue = jm.getN() / baseValue;
+        baseValue = jm.getnPointEvaluate() * jm.get(jm.getTrainDataNum()) - baseValue;
+        tempFaiValue = jm.getTrainDataNum() / baseValue;
         jm.setFaiPointEvaluate(tempFaiValue);
     }
 
@@ -140,10 +138,10 @@ public class JelinskiMorandaModel {
      */
     private static double calculateFunctionF(JmModelDataBean jm, int n) {
         double f = 0;
-        for (int i = 1; i <= jm.getN(); i++) {
+        for (int i = 1; i <= jm.getTrainDataNum(); i++) {
             f += 1 / (n - i + 1.0);
         }
-        f -= (jm.getN() / (n - calculateValueP(jm)));
+        f -= (jm.getTrainDataNum() / (n - calculateValueP(jm)));
         return f;
     }
 
@@ -157,10 +155,10 @@ public class JelinskiMorandaModel {
             return jm.getValueP();
         }
         double p = 0;
-        for (int i = 1; i <= jm.getN(); i++) {
+        for (int i = 1; i <= jm.getTrainDataNum(); i++) {
             p += (i - 1) * (jm.get(i) - jm.get(i - 1));
         }
-        p /= jm.get(jm.getN());
+        p /= jm.get(jm.getTrainDataNum());
         jm.setValueP(p);
         return p;
     }

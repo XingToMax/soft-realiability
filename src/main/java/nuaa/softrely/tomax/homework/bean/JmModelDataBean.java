@@ -1,6 +1,5 @@
 package nuaa.softrely.tomax.homework.bean;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,7 +7,7 @@ import java.util.List;
  * @Description:
  * @Date: Created in 2018/11/5 18:59
  */
-public class JmModelDataBean extends DatasetBean{
+public class JmModelDataBean extends Model {
     /**
      * p的值对于单个jm而言应是定值
      */
@@ -28,6 +27,12 @@ public class JmModelDataBean extends DatasetBean{
     private int right;
     private int left;
     private int root;
+
+    @Override
+    public double calculateFunctionDistribution(double x) {
+        double value = Math.exp(-faiPointEvaluate * (nPointEvaluate - trainDataNum + 1) * x);
+        return  1 - value;
+    }
 
     public Double getValueP() {
         return valueP;

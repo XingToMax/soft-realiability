@@ -28,10 +28,26 @@ public class GoelOkumotoModel {
         go.initdValue();
         // 执行计算步骤
         calculateStepFirst(go);
+
+        for (int i = 0; i <= go.getTrainDataNum(); i++) {
+            go.getuValueList().add(calculateDistributionFunction(go, i));
+        }
         // 返回
         return go;
     }
 
+
+    /**
+     * 计算分布函数
+     * @param go
+     * @param index
+     * @return
+     */
+    private static double calculateDistributionFunction(GoelOkumotoBean go, int index) {
+        double value = 0;
+        value = go.getaPoint() * (1 - Math.pow(Math.E, (-go.getbPoint() * go.get(index))));
+        return 1 - Math.pow(Math.E, -go.get(index) / value);
+    }
     /**
      * 步骤一
      * @param go
@@ -82,9 +98,9 @@ public class GoelOkumotoModel {
      */
     private static void calculateStepFourth(GoelOkumotoBean go) {
         // 计算b
-        go.setbPoint(go.getXm() / go.get(go.getN()));
+        go.setbPoint(go.getXm() / go.get(go.getTrainDataNum()));
         // 计算a
-        go.setaPoint(go.getN() / (1 - Math.pow(Math.E, -1 * go.getbPoint() * go.get(go.getN()))));
+        go.setaPoint(go.getTrainDataNum() / (1 - Math.pow(Math.E, -1 * go.getbPoint() * go.get(go.getTrainDataNum()))));
         // 执行步骤五
         calculateStepFifth(go);
     }
