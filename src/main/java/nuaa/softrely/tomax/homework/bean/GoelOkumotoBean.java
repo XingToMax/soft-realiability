@@ -25,6 +25,7 @@ public class GoelOkumotoBean extends Model {
             dSum += d;
         }
         dValue = dSum / (trainDataNum * trainDataset.get(trainDataNum));
+        System.out.println(dValue);
     }
 
     private double xr;
@@ -32,8 +33,15 @@ public class GoelOkumotoBean extends Model {
     private double xl;
 
     @Override
-    public double calculateFunctionDistribution(double x) {
-        return 0;
+    public double calculateDistribution(double x) {
+        double value = aPoint * (1 - Math.exp(-bPoint * trainDataNum));
+        return 1 - Math.exp(-x / value);
+    }
+
+    @Override
+    public double calculateProbabilityDensity(double x) {
+        double value = aPoint * (1 - Math.exp(-bPoint * trainDataNum));
+        return (1 / value) * Math.exp(-x / value);
     }
 
     public double getdValue() {

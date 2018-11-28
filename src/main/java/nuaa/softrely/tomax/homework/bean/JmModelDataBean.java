@@ -29,9 +29,15 @@ public class JmModelDataBean extends Model {
     private int root;
 
     @Override
-    public double calculateFunctionDistribution(double x) {
+    public double calculateDistribution(double x) {
         double value = Math.exp(-faiPointEvaluate * (nPointEvaluate - trainDataNum + 1) * x);
         return  1 - value;
+    }
+
+    @Override
+    public double calculateProbabilityDensity(double x) {
+        double value = faiPointEvaluate * (nPointEvaluate - trainDataNum + 1);
+        return Math.exp(-value * x);
     }
 
     public Double getValueP() {

@@ -21,7 +21,7 @@ public class EvaluateModel {
         List<Double> xAxisValueList = new ArrayList<>();
 
         for (int i = 0; i < model.getTestDataset().size(); i++) {
-            xAxisValueList.add(model.calculateFunctionDistribution(model.getTestDataset().get(i)));
+            xAxisValueList.add(model.calculateDistribution(model.getTestDataset().get(i)));
         }
 
         Collections.sort(xAxisValueList);
@@ -65,4 +65,44 @@ public class EvaluateModel {
             }
         }
     }
+
+    /**
+     * 计算K-S距离
+     * @param model
+     */
+    public static void calculateKSDistance(Model model) {
+        double ks = 0;
+        int base = model.getuValueList().size() + 2;
+        // 计算u图ks
+        for (int i = 0; i < model.getuValueList().size(); i++) {
+            double val = Math.abs((i / (double)base) - model.getuValueList().get(i));
+            if (val > model.getuKS()) {
+                model.setuKS(val);
+                model.setUksxIndex(i);
+            }
+        }
+        // 计算y图ks
+        for (int i = 0; i < model.getyValueList().size(); i++) {
+            double val = Math.abs((i / (double)base) - model.getyValueList().get(i));
+            if (val > model.getyKS()) {
+                model.setyKS(val);
+                model.setYksxIndex(i);
+            }
+        }
+    }
+
+    public static double plrEvaluate(Model a, Model b) {
+        double plra = 1;
+        double plrb = 1;
+
+        for (int i = 0; i < a.getTestDataset().size(); i++) {
+            plra *= a.calculateProbabilityDensity(a.getTestDataset().get(i));
+            plrb *= b.calculateProbabilityDensity(b.getTestDataset().get(i));
+            System.out.println(plra + " : " + plrb);
+        }
+        System.out.println(plra);
+        System.out.println(plrb);
+        return plra / plrb;
+    }
+
 }

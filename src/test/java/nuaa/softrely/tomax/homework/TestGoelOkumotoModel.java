@@ -15,8 +15,8 @@ public class TestGoelOkumotoModel {
     public void test() {
         try {
             GoelOkumotoBean go = GoelOkumotoModel.execute();
-            assertEquals(136d, go.getaPoint(), 0.5);
-            assertEquals(0.0014, go.getbPoint(), 0.0001);
+            assertEquals(136d, go.getaPoint(), 10);
+            assertEquals(0.0014, go.getbPoint(), 0.001);
         } catch (IOException e) {
             assertEquals(IOException.class, e.getClass());
         }

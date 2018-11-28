@@ -20,7 +20,7 @@ public abstract class Model implements DataReader{
     protected int trainDataNum;
 
     /**
-     * 失效时间列表
+     * 失效时间列表，数据集
      */
     protected List<Double> failCountList;
     protected List<Double> trainDataset;
@@ -30,11 +30,17 @@ public abstract class Model implements DataReader{
      * U-图数据
      */
     protected List<Double> uValueList;
+    protected double uKS;
+    // 记录ks坐标（x）
+    protected int uksxIndex;
 
     /**
      * Y-图数据
      */
     protected List<Double> yValueList;
+    protected double yKS;
+    //记录ks坐标（x）
+    protected int yksxIndex;
 
     public Model() {
         failCountList = new LinkedList<>();
@@ -45,11 +51,18 @@ public abstract class Model implements DataReader{
         trainDataset.add(0d);
     }
     /**
-     * 计算分布值
+     * 计算概率分布值
      * @param x
      * @return
      */
-    public abstract double calculateFunctionDistribution(double x);
+    public abstract double calculateDistribution(double x);
+
+    /**
+     * 计算概率密度值
+     * @param x
+     * @return
+     */
+    public abstract double calculateProbabilityDensity(double x);
 
     public void add(Double data) {
         this.failCountList.add(data);
@@ -137,5 +150,37 @@ public abstract class Model implements DataReader{
 
     public void setTestDataset(List<Double> testDataset) {
         this.testDataset = testDataset;
+    }
+
+    public double getuKS() {
+        return uKS;
+    }
+
+    public void setuKS(double uKS) {
+        this.uKS = uKS;
+    }
+
+    public double getyKS() {
+        return yKS;
+    }
+
+    public void setyKS(double yKS) {
+        this.yKS = yKS;
+    }
+
+    public int getUksxIndex() {
+        return uksxIndex;
+    }
+
+    public void setUksxIndex(int uksxIndex) {
+        this.uksxIndex = uksxIndex;
+    }
+
+    public int getYksxIndex() {
+        return yksxIndex;
+    }
+
+    public void setYksxIndex(int yksxIndex) {
+        this.yksxIndex = yksxIndex;
     }
 }
