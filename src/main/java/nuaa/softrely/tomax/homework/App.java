@@ -26,6 +26,6 @@ public class App {
         evaluateGraph.setVisible(true);
 
         GoelOkumotoBean goModel = GoelOkumotoModel.execute();
-        System.out.println(EvaluateModel.plrEvaluate(model, goModel));
+        System.out.println("plr : " + EvaluateModel.plrEvaluate(model, goModel));
     }
 }

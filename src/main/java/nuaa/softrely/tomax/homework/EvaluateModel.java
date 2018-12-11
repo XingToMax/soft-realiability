@@ -100,8 +100,8 @@ public class EvaluateModel {
             plrb *= b.calculateProbabilityDensity(b.getTestDataset().get(i));
             System.out.println(plra + " : " + plrb);
         }
-        System.out.println(plra);
-        System.out.println(plrb);
+        System.out.println("pl model a : " + plra);
+        System.out.println("pl model b : " + plrb);
         return plra / plrb;
     }
 
